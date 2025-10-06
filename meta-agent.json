@@ -1,0 +1,715 @@
+{
+  "name": "meta-agent",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Easy Apply",
+        "formDescription": "This is the form where you will fill in your details, upon being shortlisted you will be contacted by the company for further interviews or joining procedures.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Full Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "CNIC",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "CV",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "acceptFileTypes": "pdf",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Why join BellmedEx",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "What are you most proficient in?",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Front-end Developer"
+                  },
+                  {
+                    "option": "Back-end Developer"
+                  },
+                  {
+                    "option": "AI Engineer"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "What is your current salary package? (leave blank if not employeed)",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "What is your expected salary package?",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "what is your years of experience in the feild? ",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Website"
+            },
+            {
+              "fieldLabel": "What is your Notice Period",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "email",
+              "fieldType": "email",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -144,
+        -64
+      ],
+      "id": "2417ccaf-fdfe-4c47-a913-ea824757b84e",
+      "name": "On form submission",
+      "webhookId": "23e9ff48-fde7-4f5e-8368-e6f2a3a01725"
+    },
+    {
+      "parameters": {
+        "model": "allam-2-7b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        376,
+        160
+      ],
+      "id": "8de88f03-5813-4da5-95d2-c5e8e489d735",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "Rbp8KwcK4eU4EmFO",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "deepseek/deepseek-chat-v3.1:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1176,
+        360
+      ],
+      "id": "5efea27b-0e5d-46f0-86f4-8be09aaf2fcf",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "WaHoDQpB9Dq1DfI7",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "mortazaameer8@gmail.com",
+        "toEmail": "={{ $('On form submission').item.json.email }}",
+        "subject": "We have come up with a decision.",
+        "emailFormat": "text",
+        "text": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1456,
+        136
+      ],
+      "id": "fb357df0-984f-4a3c-85bb-67cbec99c75c",
+      "name": "Send email1",
+      "webhookId": "5dd58497-32a5-4354-a12f-99fe7b836e6a",
+      "credentials": {
+        "smtp": {
+          "id": "VuKa31CtrmYBSGlJ",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "gemma2-9b-it",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1176,
+        -144
+      ],
+      "id": "884f348f-f4c0-41d0-82fd-3be339cd17fe",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "Rbp8KwcK4eU4EmFO",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "mortazaameer8@gmail.com",
+        "toEmail": "={{ $('On form submission').item.json.email }}",
+        "subject": "=We have come up with a decision,{{ $('On form submission').item.json['Full Name'] }}",
+        "emailFormat": "text",
+        "text": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1456,
+        -264
+      ],
+      "id": "5d3097ee-dacd-4c1a-9a55-47db436ae836",
+      "name": "Send email2",
+      "webhookId": "99b72dfe-ee3c-48b2-8b4a-e0be150cdf2b",
+      "credentials": {
+        "smtp": {
+          "id": "VuKa31CtrmYBSGlJ",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "mortazaameer8@gmail.com",
+        "toEmail": "={{ $json.email }}",
+        "subject": "BellmedEx appreciates your enthusiasm to be a part of the family",
+        "emailFormat": "text",
+        "text": "We are really happy that you have considered us to advance in your career ladder. We have received your CV and the details we need to proceed forward with the evaluation procedure. Please stay patient as the Hiring Team shortlists the selected Candidates for the Interview procedure. \nIn the meanwhile, please visit our website, I have mentioned the website link below:\nhttps://bellmedex.com\nThis is an automated message please do not reply to this email.",
+        "options": {
+          "attachments": ""
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        80,
+        -64
+      ],
+      "id": "2a9110a4-ef4d-441a-bd28-7d7ea315098f",
+      "name": "Applying Confirmation",
+      "webhookId": "8c722361-0f96-4991-b109-636ecad30582",
+      "credentials": {
+        "smtp": {
+          "id": "VuKa31CtrmYBSGlJ",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a smart agent who will look at the basic information and give it to me in a basic format. You will then use the tools to perform further actions.\nYou will provide me applicant's email\n {{ $('On form submission').item.json.email }}, his CNIC {{ $('On form submission').item.json.CNIC }}, why does he want to join BellmedEx,{{ $('On form submission').item.json['Why join BellmedEx'] }}, what is his current salary,{{ $('On form submission').item.json['What is your current salary package? (leave blank if not employeed)'] }}, and what is he expecting us to pay, {{ $('On form submission').item.json['What is your expected salary package?'] }}, what is his years of experience{{ $('On form submission').item.json['what is your years of experience in the feild? '] }}, if he has any website,{{ $('On form submission').item.json.Website }} , and what is his notice period for joining, {{ $('On form submission').item.json['What is your Notice Period'] }}. You will also attach his CV in your message, just attach the link to download the CV, {{ $('On form submission').item.json.CV.filename }}. \n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        304,
+        -64
+      ],
+      "id": "78f61bff-83eb-4394-9f2f-7f52b18b972d",
+      "name": "Sending Info to Hiring team"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "fromEmail": "mortazaameer8@gmail.com",
+        "toEmail": "mortazaameer8@gmail.com",
+        "subject": "=Candidate- {{ $('On form submission').item.json['Full Name'] }} information",
+        "message": "={{ $json.output }}",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double",
+            "buttonDisapprovalStyle": "primary"
+          }
+        },
+        "options": {
+          "limitWaitTime": {
+            "values": {
+              "resumeAmount": 2,
+              "resumeUnit": "days"
+            }
+          },
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        656,
+        -64
+      ],
+      "id": "c546c01c-1a19-45d5-94d9-fd6a3fee6eda",
+      "name": "hiring team will approve or reject",
+      "webhookId": "474132fe-f467-4aad-aaeb-3a0b34555a8e",
+      "credentials": {
+        "smtp": {
+          "id": "VuKa31CtrmYBSGlJ",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.data.approved }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "d36dba6a-eee9-45df-be09-185440918d93"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5e743dad-3340-4141-9c61-cb43f8ac4940",
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        880,
+        -64
+      ],
+      "id": "73ef823f-a344-4208-97dc-e0c179d082b2",
+      "name": "rejected or accepted"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a professional HR assistant writing an official rejection email to a job applicant who has not been shortlisted for the interview stage this time.\n\nFollow these instructions carefully:\n\n1. Begin with a clear, polite, and professional subject line outside the email body.\n   - Example: “Subject: Update on Your Application for [Role Name]”  \n   (Replace [Role Name] with the role mentioned below.)\n\n2. The applicant’s full name is {{ $('On form submission').item.json['Full Name'] }}.\n3. The role they applied for is {{ $('On form submission').item.json['What are you most proficient in?'] }}.\n\n4. In the body:\n   - Start the email with a personalized greeting using their name.\n   - Express sincere appreciation for their interest in joining BellmedEx and for taking the time to apply.\n   - Inform them, respectfully and empathetically, that they have not been shortlisted for the interview this time.\n   - Emphasize that this decision was based on a highly competitive selection process and is not a reflection of their potential or abilities.\n   - Encourage them to stay connected with BellmedEx by following the company’s Fiverr page, where new job openings are regularly posted.\n   - Express optimism for their career growth and wish them the best in their future endeavors.\n   - Maintain a professional, supportive, and warm tone throughout.\n\n5. End the email with a courteous closing and professional signature:\n   “Best regards,  \n   The Hiring Team  \n   BellmedEx”",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1104,
+        -368
+      ],
+      "id": "ac3d6940-7220-4015-aafa-68850a0afd3a",
+      "name": "rejected"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a professional HR assistant writing an official email to inform a job applicant that they have been shortlisted for the interview stage.\n\nFollow these instructions carefully:\n\n1. Begin with a clear, polite, and professional subject line outside the email body.\n   - Example: “Subject: Congratulations – You’ve Been Shortlisted for [Role Name]”  \n   (Replace [Role Name] with the role mentioned below.)\n\n2. The applicant’s full name is {{ $('On form submission').item.json['Full Name'] }}.\n3. The role they applied for is {{ $('On form submission').item.json['What are you most proficient in?'] }}.\n\n4. In the body:\n   - Start the email with a personalized greeting using their name.\n   - Express enthusiasm and appreciation for their interest in joining BellmedEx.\n   - Congratulate them warmly on being shortlisted for the interview stage for the specified role.\n   - Inform them that their interview will be scheduled in the coming week, and they will receive a notification with the exact date, time, and details soon.\n   - Encourage them to stay prepared and mention that the team is looking forward to meeting them.\n   - Maintain a formal yet friendly, supportive, and positive tone throughout the email.\n\n5. End the email with a courteous closing and professional signature:\n   “Best regards,  \n   The Hiring Team  \n   BellmedEx”",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1104,
+        136
+      ],
+      "id": "8bd5bbad-bc48-454e-9dec-5e4376bc2570",
+      "name": "accepted"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a smart scheduling assistant for BellmedEx’s recruitment process.\n\nYour role is to automatically schedule interviews for shortlisted applicants using the tools connected to you.\n\nYou have access to the following tools:\n- Google Calendar → to check availability and create calendar events.\n- Google Meet → to create online meeting links for interviews.\n\n---\n\n### Your Task:\n\n1. The interviews must be scheduled **3 days after** the shortlisted email has been sent.\n   - Each interview lasts **1 hour**.\n   - Interview hours are from **10:00 AM to 7:00 PM**.\n   - There is a **lunch break from 1:00 PM to 2:30 PM** (no interviews during this time).\n   - There is a **tea break from 5:00 PM to 5:30 PM** (no interviews during this time).\n\n2. Check the Google Calendar for the date that is **3 days from today**:\n   - Find the **earliest available 1-hour slot** between 10:00 AM and 7:00 PM, excluding the lunch and tea breaks.\n   - If multiple free slots exist, choose the earliest one.\n   - If no free slots exist on that date, move to the **next day** and repeat this process.\n   - Continue checking subsequent days until a valid time slot is found.\n\n3. Once a free slot is found:\n   - Use **Google Meet** to create a meeting with the following details:\n     - **Topic:** Interview with {{ $('On form submission').item.json['Full Name'] }}\n     - **Description:** Interview for the role: {{ $('On form submission').item.json['What are you most proficient in?'] }}\n     - **Start time:** The selected free slot\n     - **End time:** One hour after the start time\n\n4. Then, use **Google Calendar** to create an event for that meeting:\n   - **Title:** Interview with {{ $('On form submission').item.json['Full Name'] }}\n   - **Description:** Interview for the role: {{ $('On form submission').item.json['What are you most proficient in?'] }}\n   - **Start time:** The selected free slot\n   - **End time:** One hour after the start time\n   - **Location:** The Google Meet link created above\n\n5. After the meeting and event are successfully created, return a confirmation message in the following format:\n\n✅ Interview scheduled successfully!\n- **Candidate:** {{ $('On form submission').item.json['Full Name'] }}\n- **Role:** {{ $('On form submission').item.json['What are you most proficient in?'] }}\n- **Date:** <scheduled date>\n- **Time:** <scheduled time>\n- **Meet Link:** <Google Meet link>\n\n---\n\n### Rules to Follow:\n- Never schedule an interview before 10:00 AM or after 7:00 PM.\n- Skip lunch hours (1:00 PM – 2:30 PM) and tea break (5:00 PM – 5:30 PM).\n- If all valid time slots for a day are filled, move to the next day automatically.\n- Continue this scheduling logic sequentially for each new applicant as forms are submitted.\n- Always respond clearly and professionally, confirming the exact time, date, and Meet link.\n\n---\n\nYour output must always include a summary confirmation of the final scheduled slot and the generated meeting link.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1736,
+        136
+      ],
+      "id": "5b690850-445a-438f-90d3-131f1e8bf38c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "qwen/qwen3-32b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1680,
+        360
+      ],
+      "id": "1238f8cf-2221-4531-8337-92539c4f2dee",
+      "name": "Groq Chat Model2",
+      "credentials": {
+        "groqApi": {
+          "id": "Rbp8KwcK4eU4EmFO",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "bellmedEx hiring 77"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1808,
+        360
+      ],
+      "id": "d13c6fc6-0c59-4413-bd64-e08418e9419c",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "mortazaameer8@gmail.com",
+          "mode": "list",
+          "cachedResultName": "mortazaameer8@gmail.com"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "additionalFields": {
+          "attendees": [
+            "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('attendees0_Attendees', ``, 'string') }}"
+          ],
+          "conferenceDataUi": {
+            "conferenceDataValues": {
+              "conferenceSolution": "hangoutsMeet"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        1936,
+        360
+      ],
+      "id": "cad8ae1b-1a4f-495e-b62e-8106adcf179f",
+      "name": "Create an event in Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "u8YuLnA5pZ3fqrFg",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "fromEmail": "mortazamaeer8@gmail.com",
+        "toEmail": "={{ $('On form submission').item.json.email }}",
+        "subject": "Please confirm the interview date and time",
+        "message": "={{ $json.output }}",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double",
+            "approveLabel": "I am available ",
+            "disapproveLabel": "I wont be available "
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        2144,
+        136
+      ],
+      "id": "8b0e2c05-736c-4eed-906f-2d4976bbc5db",
+      "name": "SendAndWait email",
+      "webhookId": "83164033-1148-4516-8020-10026ffd3aba",
+      "credentials": {
+        "smtp": {
+          "id": "VuKa31CtrmYBSGlJ",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "mortazaameer8@gmail.com",
+        "toEmail": "mortazaameer9@gmail.com",
+        "subject": "Response",
+        "emailFormat": "text",
+        "text": "={{ $json.data.approved }}{{ $('AI Agent').item.json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        2368,
+        136
+      ],
+      "id": "99a76f58-42d2-4c82-8f0b-a35aed6b5cc0",
+      "name": "Send email",
+      "webhookId": "82bb9a8b-1a65-42e5-be24-e35ff351f5fb",
+      "credentials": {
+        "smtp": {
+          "id": "VuKa31CtrmYBSGlJ",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Applying Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Sending Info to Hiring team",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "accepted",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "rejected",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send email1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Applying Confirmation": {
+      "main": [
+        [
+          {
+            "node": "Sending Info to Hiring team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sending Info to Hiring team": {
+      "main": [
+        [
+          {
+            "node": "hiring team will approve or reject",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "hiring team will approve or reject": {
+      "main": [
+        [
+          {
+            "node": "rejected or accepted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "rejected or accepted": {
+      "main": [
+        [
+          {
+            "node": "accepted",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "rejected",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "rejected": {
+      "main": [
+        [
+          {
+            "node": "Send email2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "accepted": {
+      "main": [
+        [
+          {
+            "node": "Send email1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "SendAndWait email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SendAndWait email": {
+      "main": [
+        [
+          {
+            "node": "Send email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3b27fdf0-38a1-4d81-9760-1505e4e56d41",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fecfa4c6fdbfeb76da9f0606e5150d9768d6ec5566b91dcdca1fa81bd55cc601"
+  },
+  "id": "vJQyatadqy7y8ZOG",
+  "tags": []
+}
