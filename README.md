@@ -13,7 +13,9 @@ This workflow automates:
 	•	Automated interview scheduling with Google Calendar and Google Meet
 	•	Candidate confirmation follow-ups
 
-⸻
+<img width="1440" height="900" alt="Screenshot 2025-10-06 at 5 03 23 PM" src="https://github.com/user-attachments/assets/1a035fad-f645-467a-a340-bf76d24c6b0f" />
+<img width="1440" height="900" alt="Screenshot 2025-10-06 at 5 03 40 PM" src="https://github.com/user-attachments/assets/9790a5bf-478e-47ac-b64e-9fbd5a030869" />
+
 
 🧩 Core Components
 
@@ -29,7 +31,6 @@ AI Interview Scheduling Agent	Automatically finds the next available interview s
 Candidate Interview Confirmation	Sends a “Send and Wait” approval email allowing the applicant to confirm or decline the proposed schedule.
 
 
-⸻
 
 ⚙️ Workflow Logic
 
@@ -67,7 +68,6 @@ Candidate Interview Confirmation	Sends a “Send and Wait” approval email allo
 	8.	Final Confirmation to HR
 	•	HR receives a summary email containing the candidate’s response and meeting details.
 
-⸻
 
 🧠 AI Models Integrated
 
@@ -77,7 +77,6 @@ OpenRouter	DeepSeek v3.1	Generates empathetic and professional applicant emails
 LangChain Agents	n8n-native AI orchestration	Connects models, memory, and tools dynamically
 
 
-⸻
 
 🔧 Integrations
 
@@ -87,8 +86,6 @@ Google Meet	Auto-generates virtual interview links for each candidate.
 SMTP Email (Gmail)	Sends automated emails (confirmation, approval, rejection, interview scheduling).
 Groq + OpenRouter APIs	Power the conversational AI logic for HR automation.
 
-
-⸻
 
 🧱 Form Fields (Front-End View)
 
@@ -106,8 +103,6 @@ Notice Period	Number	✅	Days required before joining
 Email	Email	✅	For communication
 
 
-⸻
-
 📅 Interview Scheduling Logic
 
 Rules Implemented by AI Agent:
@@ -119,8 +114,6 @@ Rules Implemented by AI Agent:
 	•	Generates Google Meet + Calendar event
 	•	Sends confirmation to both HR and the applicant
 
-⸻
-
 💡 Key Highlights
 	•	🤖 End-to-end automation — no manual HR intervention needed
 	•	✉️ AI-personalized communication for acceptance & rejection
@@ -130,7 +123,6 @@ Rules Implemented by AI Agent:
 	•	🔁 Approval loop ensures HR remains in control
 	•	☁️ Easily deployable on local or cloud n8n instances
 
-⸻
 
 ⚙️ Setup Guide
 	1.	Install n8n
@@ -148,7 +140,6 @@ Follow official setup: https://docs.n8n.io/
 	•	Use your n8n deployment URL (e.g., https://yourdomain.com/form/23e9ff48-fde7-4f5e-8368-e6f2a3a01725)
 	•	Share it with candidates for easy application submission.
 
-⸻
 
 📬 Output Example
 
@@ -172,3 +163,12 @@ Join via: https://meet.google.com/abc-xyz-123
 
 If you have any questions or suggestions, feel free to reach out at
 🌐 Mortaza76.github.io
+<img width="1440" height="900" alt="Screenshot 2025-10-06 at 5 04 27 PM" src="https://github.com/user-attachments/assets/0c6b8baf-107c-4848-aa3c-326707864163" />
+<img width="1440" height="900" alt="Screenshot 2025-10-06 at 5 04 35 PM" src="https://github.com/user-attachments/assets/5f445774-9e99-4dfe-9668-cee0c51cd1c1" />
+<img width="1440" height="900" alt="Screenshot 2025-10-06 at 5 04 42 PM" src="https://github.com/user-attachments/assets/90053947-c305-4285-93a2-da4a91df8988" />
+<img width="1440" height="900" alt="Screenshot 2025-10-06 at 5 05 00 PM" src="https://github.com/user-attachments/assets/d8605c30-e44d-4915-a6ca-f686dfd75746" />
+<img width="1440" height="900" alt="Screenshot 2025-10-06 at 5 05 22 PM" src="https://github.com/user-attachments/assets/ed9c3786-6a4c-4935-970c-dfd43dff352f" />
+
+
+
+
